@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const bcrypt = require('bcrypt')
 
 // Creamos el esquema con los campos requeridos y sus validaciones
 const UserSchemma = new Schema({
@@ -22,6 +23,17 @@ const UserSchemma = new Schema({
         minlength: [8, `El campo "Password" debe tener al menos 8 caracteres`],
     },
 }, { timestamps: true });
+
+// Creamos el método para encriptar la contraseña
+UserSchemma.methods.encryptPassword = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+}
+
+// Creamos el método para comparar las contraseñas
+UserSchemma.methods.comparePassword = (password, done) => {
+    return bcrypt.compare(password, this.password)
+}
+
 
 const users = mongoose.model('users', UserSchemma)
 module.exports = users;
