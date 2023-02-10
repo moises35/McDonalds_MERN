@@ -2,6 +2,7 @@ const User = require('./../models/users.model');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
+const NODE_ENV = process.env.NODE_ENV;
 
 // Firma del JWT
 const signJWT = (user) => {
@@ -17,12 +18,13 @@ const signJWT = (user) => {
 // Enviar token
 const sendToken = (user, statusCode, req, res) => {
     const token = signJWT(user);
-
+    
     const coookiesOptions = { 
-        expires: new Date(Date.now() + JWT_EXPIRES * 60 * 60 * 1000),
-        httpOnly: true,
-        secure: true
+        expires: new Date(Date.now() + 1*24*60*60*1000 ),
+        httpOnly: NODE_ENV === 'production' ? true : false,
+        secure: NODE_ENV === 'production' ? true : false,
     };
+    console.log(coookiesOptions)
 
     // Guardamos el token en la cookie
     res.cookie('token', token, coookiesOptions);
@@ -70,22 +72,7 @@ const loginUser = (req, res) => {
                     if (!user.comparePassword(password)) {
                         res.status(400).json({ message: 'La contraseña es incorrecta' });
                     } else {
-                        // Creamos el token
-                        const payload = {
-                            id: user._id,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            userName: user.userName
-                        }
-                        // Creamos el token y la cookie que expire en 30 minutos
-                        jwt.sign(payload, JWT_SECRET, { expiresIn: 1800 }, (err, token) => {
-                            if (err) {
-                                res.status(400).json({ message: 'Hubo un error al crear el token' });
-                            } else {
-                                res.status(200).cookie('token', token, { httpOnly: true }).json({ message: 'Usuario logueado correctamente', user: payload });
-                            }
-                        });
-
+                        sendToken(user, 200, req, res);
                     }
                 }
             })

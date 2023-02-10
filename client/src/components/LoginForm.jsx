@@ -70,10 +70,7 @@ const LoginForm = () => {
         axios.post('/user/login', { userName: username, password })
             .then(res => {
                 console.log(res)
-                if (res.data.user) {
-                    localStorage.setItem('token', res.data.user)
-                    navegar('/dashboard')
-                }
+                
             })
             .catch(err => {
                 console.log(err)
@@ -90,11 +87,11 @@ const LoginForm = () => {
             <img src={logo} alt="McDonalds Logo" />
             <Form onSubmit={handleSubmit}>
                 <div className="form-floating mb-3">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="User Name" onChange={(e) => setUsername(e.target.value)} value={username} />
+                    <input required type="text" className="form-control" id="floatingInput" placeholder="User Name" onChange={(e) => setUsername(e.target.value)} value={username} />
                     <label htmlFor="floatingInput">User Name</label>
                 </div>
                 <div className="form-floating">
-                    <input type="password" className="form-control" id="floatingPassword" autoComplete="on" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
+                    <input required type="password" className="form-control" id="floatingPassword" autoComplete="on" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <Btn type="submit">Login</Btn>
