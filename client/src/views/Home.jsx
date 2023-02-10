@@ -38,17 +38,26 @@ const Btn = styled.button`
     font-weight: bold;
     padding: 6px 5px;
     text-transform: uppercase;
+    cursor: pointer;
+    &:hover {
+        background-color: #FCBA1E;
+    }
 `
-    
 
 const Home = () => {
     const navegar = useNavigate();
     const pressBtn = () => {
-        navegar("/main")
+        navegar("/dashboard")
     }
+
+    const buttons = [
+        {url: "/login", text: "Login"},
+        {url: "/signup", text: "Sign up"}
+    ]
+
     return (
         <>
-            <Header /> 
+            <Header buttons={buttons} /> 
             <Main>
                 <TextContainer>                    
                     <p>Welcome to McDonald's. Register or log in to take your order</p>

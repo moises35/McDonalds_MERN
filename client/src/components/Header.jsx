@@ -19,15 +19,17 @@ const Img = styled.img`
     height: 100%;  
 `
 
-const Header = () => {
+const Header = ({buttons}) => {
     return (
         <Cabecera>
             <Link to={"/"} style={{height: '100%'}}> 
                 <Img src={logo} alt="logo" />
             </Link>
             <div>
-                <BtnHead text={"LOGIN"} url={"/login"} />
-                <BtnHead text={"SIGN UP"} url={"/signup"} />
+                {buttons.map((button, index) => {
+                    return <BtnHead key={index} text={button.text} url={button.url} />
+                })
+                }
             </div>
         </Cabecera>
     )

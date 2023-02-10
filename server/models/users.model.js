@@ -30,8 +30,8 @@ UserSchemma.methods.encryptPassword = (password) => {
 }
 
 // Creamos el método para comparar las contraseñas
-UserSchemma.methods.comparePassword = (password, done) => {
-    return bcrypt.compare(password, this.password)
+UserSchemma.methods.comparePassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
 }
 
 
