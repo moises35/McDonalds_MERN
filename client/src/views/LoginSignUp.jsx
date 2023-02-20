@@ -3,7 +3,7 @@ import Header from "../components/Header"
 import LoginForm from "../components/LoginForm"
 import SignUpForm from "../components/SignUpForm"
 
-const LoginSignUp = ({comp}) => {
+const LoginSignUp = ({comp, pressBtn}) => {
     const buttons = [
         {url: "/", text: "HOME"}
     ]
@@ -12,7 +12,7 @@ const LoginSignUp = ({comp}) => {
         <>
             <Header buttons={buttons} />
                 {/* Si el comp es igual a "login" renderizar el componente login, sino si comp es igual a "signup" renderizar el componente SignUp */}
-                {comp === "login" ? <LoginForm /> : comp === "signUp" ? <SignUpForm /> : null}
+                {comp === "login" ? <LoginForm pressBtn={pressBtn} /> : comp === "signUp" ? <SignUpForm /> : null}
             <Footer />
         </>
     )

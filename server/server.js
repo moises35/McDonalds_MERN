@@ -9,6 +9,7 @@ require('dotenv').config();
 
 // Database
 require('./configs/mongoose.config');
+require('./controllers/products.controller').loadProducts();
 
 // Middlewares
 app.use(cors());
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 // Routes
 app.use(require('./routes/user.routes'));
+app.use(require('./routes/product.routes'));
 
 // Server listen
 app.listen(port, () => {

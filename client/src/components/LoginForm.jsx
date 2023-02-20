@@ -5,6 +5,11 @@ import { useState } from "react"
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom"
 
+const Label = styled.label`
+    color: white;
+    font-weight: bold;
+`
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -69,11 +74,19 @@ const LoginForm = () => {
         e.preventDefault()
         axios.post('/user/login', { userName: username, password })
             .then(res => {
-                console.log(res)
-                
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', JSON.stringify(res.data.user));
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Welcome!',
+                    timer: 1000,
+                    showConfirmButton: false,
+                })
+                setTimeout(() => {
+                    navegar('/dashboard')                
+                }, 1000);
             })
             .catch(err => {
-                console.log(err)
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -87,12 +100,12 @@ const LoginForm = () => {
             <img src={logo} alt="McDonalds Logo" />
             <Form onSubmit={handleSubmit}>
                 <div className="form-floating mb-3">
+                    <Label htmlFor="floatingInput">User Name</Label>
                     <input required type="text" className="form-control" id="floatingInput" placeholder="User Name" onChange={(e) => setUsername(e.target.value)} value={username} />
-                    <label htmlFor="floatingInput">User Name</label>
                 </div>
                 <div className="form-floating">
+                    <Label htmlFor="floatingPassword">Password</Label>
                     <input required type="password" className="form-control" id="floatingPassword" autoComplete="on" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
-                    <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <Btn type="submit">Login</Btn>
             </Form>

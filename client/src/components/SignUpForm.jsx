@@ -3,6 +3,12 @@ import logo from './../assets/logoCircle.svg'
 import axios from 'axios'
 import { useState } from "react"
 import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom"
+
+const Label = styled.label`
+    color: white;
+    font-weight: bold;
+`
 
 const Container = styled.div`
     display: flex;
@@ -60,6 +66,8 @@ const Btn = styled.button`
 `
 
 const SignUpForm = () => {
+    const navegar = useNavigate();
+
     const [data, setData] = useState({
         firstName: '',
         lastName: '',
@@ -79,7 +87,6 @@ const SignUpForm = () => {
                     userName: '',
                     password: ''
                 })
-                console.log(res)
                 Swal.fire({
                     title: 'Success!',
                     text: `User created successfully`,
@@ -87,6 +94,9 @@ const SignUpForm = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                setTimeout(() => {
+                    navegar('/login')
+                }, 1500)
             })
             .catch(err => {
                 console.log(err)
@@ -108,22 +118,20 @@ const SignUpForm = () => {
             <img src={logo} alt="McDonalds Logo" />
             <Form onSubmit={handleSubmit}>
                 <div className="form-floating mb-3">
-                    {/* Input con un evento para cambiar el estado */}
+                    <Label htmlFor="floatingInput">First Name</Label>
                     <input type="text" className="form-control" id="floatingInput" placeholder="Juan" onChange={(e) => setData({...data, firstName: e.target.value})} value={data.firstName}  />
-                    <label htmlFor="floatingInput">First Name</label>
-                    {/* <div class="valid-feedback">Looks good!</div> */}
                 </div>
                 <div className="form-floating mb-3">
+                    <Label htmlFor="floatingInput2">Last Name</Label>
                     <input type="text" className="form-control" id="floatingInput2" placeholder="Perez" onChange={(e) => setData({...data, lastName: e.target.value})} value={data.lastName} />
-                    <label htmlFor="floatingInput2">Last Name</label>
                 </div>
                 <div className="form-floating mb-3">
+                    <Label htmlFor="floatingInput3">User Name</Label>
                     <input type="text" className="form-control" id="floatingInput3" placeholder="juan.perez19" onChange={(e) => setData({...data, userName: e.target.value})} value={data.userName} />
-                    <label htmlFor="floatingInput3">User Name</label>
                 </div>
                 <div className="form-floating">
+                    <Label htmlFor="floatingPassword">Password</Label>
                     <input type="password" className="form-control" id="floatingPassword" placeholder="Password" autoComplete="on" onChange={(e) => setData({...data, password: e.target.value})} value={data.password} />
-                    <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <Btn type="submit" >Sign Up</Btn>
             </Form>

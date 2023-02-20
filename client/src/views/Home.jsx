@@ -3,6 +3,7 @@ import Header from "../components/Header"
 import styled from "styled-components"
 import landing from "../assets/landing.svg"
 import { useNavigate } from "react-router-dom"
+import { isAuthorized } from "../utils/auth"
 
 const Main = styled.div`
     display: flex;
@@ -47,7 +48,7 @@ const Btn = styled.button`
 const Home = () => {
     const navegar = useNavigate();
     const pressBtn = () => {
-        navegar("/dashboard")
+        isAuthorized() ? navegar("/dashboard") : navegar("/login");
     }
 
     const buttons = [

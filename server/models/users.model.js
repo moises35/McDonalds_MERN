@@ -22,6 +22,7 @@ const UserSchemma = new Schema({
         required: [true, `El campo "Password" es requerido`],
         minlength: [8, `El campo "Password" debe tener al menos 8 caracteres`],
     },
+    favoritos: [String]
 }, { timestamps: true });
 
 // Creamos el método para encriptar la contraseña

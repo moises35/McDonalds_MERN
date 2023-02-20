@@ -49,7 +49,10 @@ const createUser = (req, res) => {
                 const newUser = new User({ firstName, lastName, userName, password });
                 newUser.password = newUser.encryptPassword(password);
                 newUser.save()
-                    .then(user => sendToken(user, 201, req, res))
+                    .then(user => {
+                        user.password = undefined;
+                        res.status(201).json({ status: 'Usuario creado con éxito', user })
+                    })
                     .catch(err => res.json(err));
             }
         })
@@ -81,12 +84,16 @@ const loginUser = (req, res) => {
 }
 
 const logoutUser = (req, res) => {
-    console.log('logoutUser');
+    const options = {
+        expires: new Date(Date.now() + 10000 ),
+        httpOnly: NODE_ENV === 'production' ? true : false,
+        secure: NODE_ENV === 'production' ? true : false,
+    };
+
+    res.cookie('token', 'expiredToken', options);
+
+    res.status(200).json({ status: 'success' });
 }
-
-
-
-
 
 
 module.exports = {

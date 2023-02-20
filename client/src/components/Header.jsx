@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from './../assets/logo.png'
 import BtnHead from './BtnHead'
+import BtnLogout from './BtnLogout'
 
 const Cabecera = styled.header`
     display: flex;
@@ -19,7 +20,7 @@ const Img = styled.img`
     height: 100%;  
 `
 
-const Header = ({buttons}) => {
+const Header = ({buttons, logout, pressBtn}) => {
     return (
         <Cabecera>
             <Link to={"/"} style={{height: '100%'}}> 
@@ -30,6 +31,7 @@ const Header = ({buttons}) => {
                     return <BtnHead key={index} text={button.text} url={button.url} />
                 })
                 }
+                {logout? <BtnLogout pressBtn={pressBtn} /> : null}
             </div>
         </Cabecera>
     )
