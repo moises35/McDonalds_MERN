@@ -1,20 +1,37 @@
 import "./Carroucel.css"
+import axios from "axios";
 
 const CardProduct = (props) => {
-    const {name, price, urlImg} = props;
-    const {addToast} = props;
+    const { name, price, urlImg } = props;
+    const { actionToast } = props;
 
     const favorito = (e) => {
         e.target.classList.toggle("fa-heart-o");
         e.target.classList.toggle("fa-heart");
         e.target.classList.toggle("red");
-        if(e.target.classList.contains("red")) {
-            addToast(name + " se ha agregado a favoritos", "success");
+        if (e.target.classList.contains("red")) {
+            actionToast("success", `${name} agregado a favoritos`);
         } else {
-            addToast(name + " se ha quitado de favoritos", "info");
+            actionToast("info", `${name} eliminado de favoritos`);
         }
     }
-        
+
+    const agregarCarrito = () => {
+        const dataToSend = {
+            name,
+            price
+        }
+        axios.put("/user/pedidos/add", dataToSend)
+            .then(res => {
+                console.log(res);
+                actionToast("success", `🛒${name} agregado a pedidos`);
+            })
+            .catch(err => {
+                console.log(err);
+                actionToast("error", `😢${name} no se pudo agregar a pedidos`);
+            })
+    }
+
     return (
         <div className="col-sm-3">
             <div className="thumb-wrapper">
@@ -25,7 +42,7 @@ const CardProduct = (props) => {
                 <div className="thumb-content">
                     <h4>{name}</h4>
                     <p className="item-price"><b>${price}</b></p>
-                    <button className="btn btn-primary">Add to Cart</button>
+                    <button className="btn btn-primary" onClick={agregarCarrito}>Add to Cart</button>
                 </div>
             </div>
         </div>

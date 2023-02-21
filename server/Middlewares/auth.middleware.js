@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // Middleware
 const decryptJWT = async (token) => {
     const jwtVerify = promisify(jwt.verify);
-    return await jwtVerify(token, JWT_SECRET);
+    return await jwtVerify(token, JWT_SECRET); 
 }
 
 const protect = async (req, res, next) => {
@@ -41,5 +41,6 @@ const protect = async (req, res, next) => {
 
 
 module.exports = {
-    protect
+    protect,
+    decryptJWT
 }

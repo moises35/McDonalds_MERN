@@ -6,6 +6,8 @@ import Dashboard from "./views/Dashboard";
 import Products from "./views/Products";
 import Orders from "./views/Orders";
 import RoutePrivate from "./views/RoutePrivate";
+import MiCuenta from "./views/MiCuenta";
+import Favoritos from "./views/Favoritos";
 
 const App = () => {
 	return (
@@ -19,6 +21,8 @@ const App = () => {
 						<Route path="/dashboard" element={<Dashboard />} />
 						<Route path="/productos" element={<Products />} />
 						<Route path="/pedidos" element={<Orders />} />
+						<Route path="/myAccount" element={<MiCuenta />} />
+						<Route path="/favoritos" element={<Favoritos />} />
 					</Route>
 					<Route path="*" element={<Navigate to='/login' replace />} />
 				</Routes>

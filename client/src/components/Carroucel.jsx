@@ -3,7 +3,7 @@ import './Carroucel.css'
 
 const Carroucel = (props) => {
     const { title, productos } = props;
-    const { addToast} = props;
+    const { actionToast } = props;
 
     // Cantidad de cards que queremos mostrar por carroucel
     const numCardsForCarroucel = 4;
@@ -34,7 +34,7 @@ const Carroucel = (props) => {
                                     <div className="row">
                                         {productos.slice(0, numCardsForCarroucel).map((producto) => {
                                             return (
-                                                <CardProduct key={producto.name} name={producto.name} price={producto.price} urlImg={producto.urlImg} addToast={addToast} />
+                                                <CardProduct key={producto.name} name={producto.name} price={producto.price} urlImg={producto.urlImg} actionToast={actionToast}  />
                                             );
                                         })}
                                     </div>
@@ -46,7 +46,7 @@ const Carroucel = (props) => {
                                             <div className="row">
                                                 {productos.slice((index + 1) * numCardsForCarroucel, (index + 2) * numCardsForCarroucel).map((producto) => {
                                                     return (
-                                                        <CardProduct key={producto.name} name={producto.name} price={producto.price} urlImg={producto.urlImg} addToast={addToast} />
+                                                        <CardProduct key={producto.name} name={producto.name} price={producto.price} urlImg={producto.urlImg} actionToast={actionToast}  />
                                                     );
                                                 })}
                                             </div>
