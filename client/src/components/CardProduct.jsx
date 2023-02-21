@@ -2,11 +2,17 @@ import "./Carroucel.css"
 
 const CardProduct = (props) => {
     const {name, price, urlImg} = props;
+    const {addToast} = props;
 
     const favorito = (e) => {
         e.target.classList.toggle("fa-heart-o");
         e.target.classList.toggle("fa-heart");
         e.target.classList.toggle("red");
+        if(e.target.classList.contains("red")) {
+            addToast(name + " se ha agregado a favoritos", "success");
+        } else {
+            addToast(name + " se ha quitado de favoritos", "info");
+        }
     }
         
     return (

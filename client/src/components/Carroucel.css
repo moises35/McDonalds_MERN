@@ -179,3 +179,32 @@
     font-size: 16px;
     color: #abb0b8;
 }
+
+.toast {
+    width: 300px;
+    height: 70px;
+    border-radius: 5px;
+    margin: 0.5rem;
+    color: #ffffff;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.info {
+    background-color: #2196f3;
+}
+
+.success {
+    background-color: #4caf50;
+}
+
+.error {
+    background-color: #ff5252;
+}
+
+.warning {
+    background-color: #ffc107;
+}
