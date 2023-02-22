@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { isAuthorized } from '../utils/auth'
+import { isAuthorized, limpiarTodos } from '../utils/auth'
 import { generarPDF } from '../utils/pdfGenerator'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -19,8 +19,8 @@ const Orders = () => {
             })
             .catch(err => {
                 console.log(err)
-            }
-            )
+                limpiarTodos(err.response);
+            })
     }, [navegar])
 
     const handleAdd = (name, price) => {
@@ -35,8 +35,7 @@ const Orders = () => {
             })
             .catch(err => {
                 console.log(err)
-            }
-            )
+            })
     }
 
     const handleRemove = (name, price) => {

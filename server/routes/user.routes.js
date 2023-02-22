@@ -11,10 +11,11 @@ router.post('/user/create', userController.createUser);
 router.post('/user/login', userController.loginUser);
 router.get('/user/logout', userController.logoutUser);
 router.put('/user/update', protect, userController.updateUser);
-// router.get('/user/favorites', protect, userController.getFavorites);
-router.post('/user/favorites/add', protect, userController.agregarFavorito);
-router.delete('/user/favorites/delete', protect, userController.eliminarFavorito);
-// Pedids
+// Favoritos
+router.get('/user/favorites', protect, userController.getAllFavoritos);
+router.put('/user/favorites/add', protect, userController.agregarFavorito);
+router.put('/user/favorites/delete', protect, userController.eliminarFavorito);
+// Pedidos
 router.get('/user/pedidos', protect, userController.getAllPedidos);
 router.put('/user/pedidos/add', protect, userController.addPedido);
 router.put('/user/pedidos/delete', protect, userController.deletePedido);

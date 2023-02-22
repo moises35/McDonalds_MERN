@@ -132,6 +132,23 @@ const updateUser = (req, res) => {
     }
 }
 
+const getAllFavoritos = (req, res) => {
+    const token = req.cookies.token;
+    decryptJWT(token)
+        .then(jwtInfo => {
+            User.findById(jwtInfo.id)
+                .then(user => {
+                    if (!user) {
+                        res.status(400).json({ message: 'El usuario no existe en la base de datos' });
+                    } else {
+                        res.status(200).json({ status: 'success', favoritos: user.favoritos });
+                    }
+                })
+                .catch(err => res.json(err));
+        })
+        .catch(err => res.json(err));
+}
+
 const agregarFavorito = (req, res) => {
     const token = req.cookies.token;
     decryptJWT(token)
@@ -141,14 +158,20 @@ const agregarFavorito = (req, res) => {
                     if (!user) {
                         res.status(400).json({ message: 'El usuario no existe en la base de datos' });
                     } else {
-                        const { producto } = req.body;
-                        console.log(producto);
-                        user.favoritos.push(producto);
-                        user.save()
-                            .then(() => {
-                                res.status(200).json({ status: 'success' });
-                            })
-                            .catch(err => res.json(err));
+                        const { name, price, urlImg } = req.body;
+                        const dataToPush = { name, price, urlImg };
+                        // Verificamos que el producto no este en favoritos
+                        const producto = user.favoritos.find(producto => producto.name === name);
+                        if (producto) {
+                            res.status(200).json({ status: 'success' });
+                        } else {
+                            user.favoritos.push(dataToPush);
+                            user.updateOne({ favoritos: user.favoritos })
+                                .then(() => {
+                                    res.status(200).json({ status: 'success' });
+                                })
+                                .catch(err => res.json(err));
+                        }
                     }
                 })
                 .catch(err => res.json(err));
@@ -165,13 +188,18 @@ const eliminarFavorito = (req, res) => {
                     if (!user) {
                         res.status(400).json({ message: 'El usuario no existe en la base de datos' });
                     } else {
-                        const { producto } = req.params;
-                        user.favoritos.pull(producto);
-                        user.save()
-                            .then(() => {
-                                res.status(200).json({ status: 'success' });
-                            })
-                            .catch(err => res.json(err));
+                        const { name } = req.body;
+                        const indice = user.favoritos.findIndex(producto => producto.name === name);
+                        if (indice !== -1) {
+                            user.favoritos.pull(user.favoritos[indice]);
+                            user.updateOne({ favoritos: user.favoritos })
+                                .then(() => {
+                                    res.status(200).json({ status: 'success' });
+                                })
+                                .catch(err => res.json(err));
+                        } else {
+                            res.status(200).json({ status: 'success' });
+                        }
                     }
                 })
                 .catch(err => res.json(err));
@@ -297,6 +325,7 @@ module.exports = {
     loginUser,
     logoutUser,
     updateUser,
+    getAllFavoritos,
     agregarFavorito,
     eliminarFavorito,
     getAllPedidos,

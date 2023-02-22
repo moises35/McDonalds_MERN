@@ -10,9 +10,24 @@ const CardProduct = (props) => {
         e.target.classList.toggle("fa-heart");
         e.target.classList.toggle("red");
         if (e.target.classList.contains("red")) {
-            actionToast("success", `${name} agregado a favoritos`);
+            axios.put("/user/favorites/add", { name, price, urlImg })
+                .then(res => {
+                    actionToast("success", `${name} agregado a favoritos`);
+                })
+                .catch(err => {
+                    console.log(err);
+                    actionToast("error", `${name} no se pudo agregar a favoritos`);
+                })
         } else {
-            actionToast("info", `${name} eliminado de favoritos`);
+            axios.put("/user/favorites/delete", { name })
+                .then(res => {
+                    console.log(res);
+                    actionToast("info", `${name} eliminado de favoritos`);
+                })
+                .catch(err => {
+                    console.log(err);
+                    actionToast("error", `${name} no se pudo eliminar de favoritos`);
+                })
         }
     }
 
