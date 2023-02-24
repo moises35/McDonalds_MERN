@@ -1,17 +1,35 @@
 import CardProduct from "./CardProduct";
 import './Carroucel.css'
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Carroucel = (props) => {
     const { title, productos } = props;
     const { actionToast } = props;
+    const [favoritos, setFavoritos] = useState([])
+    const navegar = useNavigate();
+
+    // UseEffect
+    useEffect(() => {
+        axios.get('/user/favorites')
+            .then(res => {
+                console.log(res.data.favoritos)
+                setFavoritos(res.data.favoritos)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [navegar])
 
     // Cantidad de cards que queremos mostrar por carroucel
     const numCardsForCarroucel = 4;
 
     // Hacemos un redondeo hacia arriba para saber cuantos carrouceles necesitamos
-    if(productos.length > 0) {
+    if (productos.length > 0) {
         const numCarroucelView = Math.ceil(productos.length / numCardsForCarroucel);
-        return (        
+        return (
             <div className="container-xl">
                 <div className="row">
                     <div className="col-md-12">
@@ -34,7 +52,7 @@ const Carroucel = (props) => {
                                     <div className="row">
                                         {productos.slice(0, numCardsForCarroucel).map((producto) => {
                                             return (
-                                                <CardProduct key={producto.name} name={producto.name} price={producto.price} urlImg={producto.urlImg} actionToast={actionToast}  />
+                                                <CardProduct key={producto.name} name={producto.name} price={producto.price} urlImg={producto.urlImg} actionToast={actionToast} favoritos={favoritos} />
                                             );
                                         })}
                                     </div>
@@ -46,7 +64,7 @@ const Carroucel = (props) => {
                                             <div className="row">
                                                 {productos.slice((index + 1) * numCardsForCarroucel, (index + 2) * numCardsForCarroucel).map((producto) => {
                                                     return (
-                                                        <CardProduct key={producto.name} name={producto.name} price={producto.price} urlImg={producto.urlImg} actionToast={actionToast}  />
+                                                        <CardProduct key={producto.name} name={producto.name} price={producto.price} urlImg={producto.urlImg} actionToast={actionToast} favoritos={favoritos} />
                                                     );
                                                 })}
                                             </div>
@@ -71,7 +89,7 @@ const Carroucel = (props) => {
     return (
         <>
             <h2 className="encabezadoCarroucel">{title}</h2>
-            <p style={{color: 'white', textAlign: "center"}}>No hay {title} disponibles para mostrar😢</p>
+            <p style={{ color: 'white', textAlign: "center" }}>No hay {title} disponibles para mostrar😢</p>
         </>
     )
 

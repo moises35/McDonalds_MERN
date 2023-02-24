@@ -16,6 +16,13 @@ const signJWT = (user) => {
     return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES });
 }
 
+const authUser = (req, res) => {
+    res.status(200).json({
+        status: 'success',
+        user: req.user
+    });
+}
+
 // Enviar token
 const sendToken = (user, statusCode, req, res) => {
     const token = signJWT(user);
@@ -321,6 +328,7 @@ const deleteAllPedidos = (req, res) => {
 
 
 module.exports = {
+    authUser,
     createUser,
     loginUser,
     logoutUser,

@@ -3,7 +3,7 @@ import axios from "axios";
 
 const CardProduct = (props) => {
     const { name, price, urlImg } = props;
-    const { actionToast } = props;
+    const { actionToast, favoritos } = props;
 
     const favorito = (e) => {
         e.target.classList.toggle("fa-heart-o");
@@ -50,7 +50,10 @@ const CardProduct = (props) => {
     return (
         <div className="col-sm-3">
             <div className="thumb-wrapper">
-                <span className="wish-icon"><i onClick={favorito} className="fa fa-heart-o"  ></i></span>
+                <span className="wish-icon"><i onClick={favorito}  
+                    className={favoritos.some(fav => fav.name === name) ? "fa fa-heart red" : "fa fa-heart-o"}
+                >
+                </i></span>
                 <div className="img-box">
                     <img src={urlImg} className="img-fluid" alt={name} />
                 </div>

@@ -11,6 +11,7 @@ router.post('/user/create', userController.createUser);
 router.post('/user/login', userController.loginUser);
 router.get('/user/logout', userController.logoutUser);
 router.put('/user/update', protect, userController.updateUser);
+router.get('/user/auth', protect, userController.authUser);
 // Favoritos
 router.get('/user/favorites', protect, userController.getAllFavoritos);
 router.put('/user/favorites/add', protect, userController.agregarFavorito);
