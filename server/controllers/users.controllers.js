@@ -103,17 +103,17 @@ const logoutUser = (req, res) => {
     res.status(200).json({ status: 'success' });
 }
 
+
 const updateUser = (req, res) => {
-    const { firstName, lastName, userName, password } = req.body;
+    const { value, type } = req.body;
     // Verificamos que todos los campos esten llenos
-    if (!firstName || !lastName || !userName || !password) {
+    if (!value || !type) {
         res.status(400).json({ message: 'Por favor, rellene todos los campos' });
     } else {
         // Desciframos el token
         const token = req.cookies.token;
         decryptJWT(token)
             .then(jwtInfo => {
-                console.log(jwtInfo);
                 // Verificamos que el usuario exista
                 User.findById(jwtInfo.id)
                     .then(user => {
@@ -121,10 +121,18 @@ const updateUser = (req, res) => {
                             res.status(400).json({ message: 'El usuario no existe en la base de datos' });
                         } else {
                             // Actualizamos los datos del usuario
-                            user.firstName = firstName;
-                            user.lastName = lastName;
-                            user.userName = userName;
-                            user.password = user.encryptPassword(password);
+                            if (type === 'firstName') {
+                                user.firstName = value;
+                            } else if (type === 'lastName') {
+                                user.lastName = value;
+                            } else if (type === 'userName') {
+                                user.userName = value;
+                            } else if (type === 'password') {
+                                user.password = user.encryptPassword(value);
+                            } else {
+                                res.status(400).json({ message: 'El tipo de dato no es válido' });
+                            }
+                            // Actualizamos el usuario
                             user.save()
                                 .then(user => {
                                     user.password = undefined;
@@ -138,6 +146,7 @@ const updateUser = (req, res) => {
             .catch(err => res.json(err));
     }
 }
+
 
 const getAllFavoritos = (req, res) => {
     const token = req.cookies.token;
