@@ -4,7 +4,7 @@ const router = require('express').Router();
 const productControllers = require('./../controllers/products.controller');
 
 // Importamos el middleware
-const { protect } = require('./../middlewares/auth.middleware');
+const { protect } = require('./../Middlewares/auth.middleware');
 
 // Creamos las rutas para los productos con el middleware
 router.get('/api/products/load', protect, productControllers.loadProducts);

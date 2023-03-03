@@ -1,6 +1,6 @@
 const User = require('./../models/users.model');
 const jwt = require('jsonwebtoken');
-const { decryptJWT } = require('./../middlewares/auth.middleware');
+const { decryptJWT } = require('./../Middlewares/auth.middleware');
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const NODE_ENV = process.env.NODE_ENV;

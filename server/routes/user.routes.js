@@ -4,7 +4,7 @@ const router = require('express').Router();
 const userController = require('./../controllers/users.controllers');
 
 // Importamos el middleware
-const { protect } = require('./../middlewares/auth.middleware');
+const { protect } = require('./../Middlewares/auth.middleware');
 
 // Creamos las rutas
 router.post('/user/create', userController.createUser);
