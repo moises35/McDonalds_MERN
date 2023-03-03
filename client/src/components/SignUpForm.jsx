@@ -78,7 +78,7 @@ const SignUpForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const config = { headers: { 'Content-Type': 'application/json' } }
-        axios.post('/user/create', data, config)
+        axios.post('https://mcdonaldsnode.onrender.com/user/create', data, config)
             .then(res => {
                 // Seteamos los datos del usuario
                 setData({

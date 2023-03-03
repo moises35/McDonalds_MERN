@@ -25,7 +25,7 @@ const BtnLogout = () => {
     const navegar = useNavigate();
 
     const logoutUser = () => {
-        axios.get('/user/logout')
+        axios.get('https://mcdonaldsnode.onrender.com/user/logout')
         .then(res => {
             console.log(res)
             localStorage.clear();

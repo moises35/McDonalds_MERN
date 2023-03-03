@@ -13,7 +13,7 @@ const Carroucel = (props) => {
 
     // UseEffect
     useEffect(() => {
-        axios.get('/user/favorites')
+        axios.get('https://mcdonaldsnode.onrender.com/user/favorites')
             .then(res => {
                 console.log(res.data.favoritos)
                 setFavoritos(res.data.favoritos)

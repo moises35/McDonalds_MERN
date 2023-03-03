@@ -98,7 +98,7 @@ const Favoritos = () => {
         if (!isAuthorized()) {
             navegar('/')
         } else {
-            axios.get('/user/favorites')
+            axios.get('https://mcdonaldsnode.onrender.com/user/favorites')
                 .then(res => {
                     console.log(res.data.favoritos)
                     setFavoritos(res.data.favoritos)
@@ -114,7 +114,7 @@ const Favoritos = () => {
             name,
             price
         }
-        axios.put("/user/pedidos/add", dataToSend)
+        axios.put("https://mcdonaldsnode.onrender.com/user/pedidos/add", dataToSend)
             .then(res => {
                 console.log(res);
                 actionToast("success", `🛒${name} agregado a pedidos`);
