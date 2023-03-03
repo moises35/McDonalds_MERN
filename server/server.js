@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 // Initialize 
-const app = express();
+const app = express(); 
 const port = process.env.PORT || 8750;
-require('dotenv').config();
 
 // Database
 require('./configs/mongoose.config');

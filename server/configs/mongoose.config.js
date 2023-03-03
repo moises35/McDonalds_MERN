@@ -1,16 +1,8 @@
 const mongoose = require('mongoose');
 
-const mongodb = {
-    host: 'localhost',
-    user: '',                   
-    password: '',               
-    database: 'McDonalds',
-    port: 27017 
-}
-
 mongoose.set('strictQuery', true);
 
-const connection = mongoose.connect(`mongodb://${mongodb.host}:${mongodb.port}/${mongodb.database}`)
+const connection = mongoose.connect(process.env.MONGO_URL)
     .then((db) => {
         console.log('Database connected')
     }).catch((err) => {
