@@ -13,7 +13,7 @@ require('./controllers/products.controller').loadProducts();
 
 // Middlewares
 app.use(cors({
-    origin: "https://mcdonaldscoding.netlify.app/",
+    origin: "https://mcdonaldscoding.netlify.app",
     credentials: true,
 }));
 app.use(function (req, res, next) {
