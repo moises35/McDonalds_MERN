@@ -31,6 +31,7 @@ const sendToken = (user, statusCode, req, res) => {
         expires: new Date(Date.now() + 1000 * 60 * 60),
         httpOnly: false,
         secure: NODE_ENV === 'production' ? true : false,
+        signed: true,
     };
     console.log(coookiesOptions)
 
