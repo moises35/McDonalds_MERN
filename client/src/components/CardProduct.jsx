@@ -10,7 +10,7 @@ const CardProduct = (props) => {
         e.target.classList.toggle("fa-heart");
         e.target.classList.toggle("red");
         if (e.target.classList.contains("red")) {
-            axios.put("https://mcdonaldsnode.onrender.com/user/favorites/add", { name, price, urlImg })
+            axios.put("https://mcdonaldsnode.onrender.com/user/favorites/add", { name, price, urlImg }, { withCredentials: true })
                 .then(res => {
                     actionToast("success", `${name} agregado a favoritos`);
                 })
@@ -19,7 +19,7 @@ const CardProduct = (props) => {
                     actionToast("error", `${name} no se pudo agregar a favoritos`);
                 })
         } else {
-            axios.put("https://mcdonaldsnode.onrender.com/user/favorites/delete", { name })
+            axios.put("https://mcdonaldsnode.onrender.com/user/favorites/delete", { name }, { withCredentials: true })
                 .then(res => {
                     console.log(res);
                     actionToast("info", `${name} eliminado de favoritos`);
@@ -36,7 +36,7 @@ const CardProduct = (props) => {
             name,
             price
         }
-        axios.put("https://mcdonaldsnode.onrender.com/user/pedidos/add", dataToSend)
+        axios.put("https://mcdonaldsnode.onrender.com/user/pedidos/add", dataToSend, { withCredentials: true })
             .then(res => {
                 console.log(res);
                 actionToast("success", `🛒${name} agregado a pedidos`);

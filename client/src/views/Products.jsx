@@ -18,7 +18,7 @@ const Products = () => {
         if (!isAuthorized()) {
             navegar('/')
         }
-        axios.get('https://mcdonaldsnode.onrender.com/api/products')
+        axios.get('https://mcdonaldsnode.onrender.com/api/products', { withCredentials: true })
             .then(res => {
                 setComida(res.data.filter(e => e.type === "comida"))
                 setBebida(res.data.filter(e => e.type === "bebida"))

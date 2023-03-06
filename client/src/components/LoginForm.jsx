@@ -72,7 +72,7 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('https://mcdonaldsnode.onrender.com/user/login', { userName: username, password })
+        axios.post('https://mcdonaldsnode.onrender.com/user/login', { userName: username, password }, {withCredentials: true})
             .then(res => {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', JSON.stringify(res.data.user));

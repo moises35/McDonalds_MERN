@@ -87,7 +87,7 @@ const MiCuenta = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.put('https://mcdonaldsnode.onrender.com/user/update', { type: selected, value: value })
+        axios.put('https://mcdonaldsnode.onrender.com/user/update', { type: selected, value: value }, { withCredentials: true })
             .then(res => {
                 Swal.fire({
                     title: 'Success!',

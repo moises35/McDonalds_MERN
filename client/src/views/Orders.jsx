@@ -13,7 +13,7 @@ const Orders = () => {
         if (!isAuthorized()) {
             navegar('/')
         }
-        axios.get('https://mcdonaldsnode.onrender.com/user/pedidos')
+        axios.get('https://mcdonaldsnode.onrender.com/user/pedidos', { withCredentials: true })
             .then(res => {
                 setPedidos(res.data.pedidos)
             })
@@ -29,7 +29,7 @@ const Orders = () => {
         newPedidos[index].cantidad += 1
         setPedidos(newPedidos)
 
-        axios.put("https://mcdonaldsnode.onrender.com/user/pedidos/add", { name, price })
+        axios.put("https://mcdonaldsnode.onrender.com/user/pedidos/add", { name, price }, { withCredentials: true })
             .then(res => {
                 console.log(res)
             })
@@ -50,7 +50,7 @@ const Orders = () => {
             setPedidos(newPedidos)
         }
 
-        axios.put("https://mcdonaldsnode.onrender.com/user/pedidos/delete", { name, price })
+        axios.put("https://mcdonaldsnode.onrender.com/user/pedidos/delete", { name, price }, { withCredentials: true })
             .then(res => {
                 console.log(res)
             })
@@ -61,7 +61,7 @@ const Orders = () => {
     }
 
     const payOrder = () => {
-        axios.get('https://mcdonaldsnode.onrender.com/user/pedidos')
+        axios.get('https://mcdonaldsnode.onrender.com/user/pedidos', { withCredentials: true })
             .then(res => {
                 setPedidos(res.data.pedidos)
                 let user = JSON.parse(localStorage.getItem('user'))
@@ -73,7 +73,7 @@ const Orders = () => {
                     // Seteamos los pedidos
                     setPedidos([])
                     // Eliminamos los pedidos del usuario
-                    axios.put('https://mcdonaldsnode.onrender.com/user/pedidos/delete/all')
+                    axios.put('https://mcdonaldsnode.onrender.com/user/pedidos/delete/all', {}, { withCredentials: true })
                         .then(res => {
                             console.log(res)
                         })
