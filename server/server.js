@@ -13,8 +13,8 @@ require('./controllers/products.controller').loadProducts();
 
 // Middlewares
 app.use(cors({
-    origin: "*",
     credentials: true,
+    origin: true
 }));
 // app.use(function (req, res, next) {
 //     res.header('Content-Type', 'application/json;charset=UTF-8')
