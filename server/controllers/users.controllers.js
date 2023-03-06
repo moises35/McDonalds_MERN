@@ -29,7 +29,7 @@ const sendToken = (user, statusCode, req, res) => {
 
     const coookiesOptions = {
         expires: new Date(Date.now() + 1000 * 60 * 60),
-        httpOnly: NODE_ENV === 'production' ? true : false,
+        httpOnly: false,
         secure: NODE_ENV === 'production' ? true : false,
     };
     console.log(coookiesOptions)
