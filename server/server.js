@@ -12,7 +12,10 @@ require('./configs/mongoose.config');
 require('./controllers/products.controller').loadProducts();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin: "https://mcdonaldscoding.netlify.app",
+    credentials: true,
+  }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
